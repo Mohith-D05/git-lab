@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniPlanner - Timetable Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>UniPlanner</h1>
+                <p>Intelligent Timetable Management System</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a></li>
+                <li><a href="#resources" class="nav-link" data-section="resources">Resources</a></li>
+                <li><a href="#timetable" class="nav-link" data-section="timetable">Timetables</a></li>
+                <li><a href="#conflicts" class="nav-link" data-section="conflicts">Conflicts</a></li>
+                <li><a href="#settings" class="nav-link" data-section="settings">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- DASHBOARD SECTION -->
+        <section id="dashboard-section" class="section active">
+            <h2>Dashboard Overview</h2>
+            
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Available Faculty</h3>
+                    <div class="metric-value" id="available-faculty">0</div>
+                    <p>Faculty with capacity</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Room Utilization</h3>
+                    <div class="metric-value" id="room-utilization">0%</div>
+                    <p>Average occupancy</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Conflicts</h3>
+                    <div class="metric-value" id="conflict-count">0</div>
+                    <p>Scheduling conflicts</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Timetable</h3>
+                    <div class="metric-value" id="timetable-status">Not Generated</div>
+                    <p>Generation status</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-section">
+                <button class="btn btn-primary" onclick="generateTimetable(this)">Generate Timetable</button>
+                <button class="btn btn-secondary" onclick="loadDashboardStats()">Refresh Stats</button>
+                <button class="btn btn-outline" onclick="exportTimetable()">Export (Excel)</button>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Faculty Workload Distribution</h3>
+                    <div class="workload-bars">
+                        <div class="workload-item">
+                            <span>Available (Green)</span>
+                            <div class="bar green" id="workload-green" style="width: 40%">40%</div>
+                        </div>
+                        <div class="workload-item">
+                            <span>Moderate (Amber)</span>
+                            <div class="bar amber" id="workload-amber" style="width: 35%">35%</div>
+                        </div>
+                        <div class="workload-item">
+                            <span>Busy (Red)</span>
+                            <div class="bar red" id="workload-red" style="width: 25%">25%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Room Status</h3>
+                    <div class="room-status">
+                        <div class="status-item">
+                            <span>Active Rooms</span>
+                            <div class="status-value" id="active-rooms">12</div>
+                        </div>
+                        <div class="status-item">
+                            <span>Maintenance</span>
+                            <div class="status-value" id="maintenance-rooms">2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESOURCES SECTION -->
+        <section id="resources-section" class="section">
+            <h2>Resource Management</h2>
+
+            <!-- Tabs for Resource Types -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showResourceTab('faculty')">Faculty</button>
+                <button class="tab-btn" onclick="showResourceTab('subject')">Subjects</button>
+                <button class="tab-btn" onclick="showResourceTab('room')">Rooms</button>
+                <button class="tab-btn" onclick="showResourceTab('section')">Sections</button>
+            </div>
+
+            <!-- Faculty Management -->
+            <div id="faculty-tab" class="tab-content active">
+                <div class="resource-header">
+                    <h3>Faculty Management</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openFacultyForm()">+ Add Faculty</button>
+                </div>
+
+                <div class="faculty-grid">
+                    <div class="faculty-card">
+                        <div class="faculty-header">
+                            <h4>Dr. Rajesh Kumar</h4>
+                            <span class="badge green">GREEN</span>
+                        </div>
+                        <div class="faculty-details">
+                            <p><strong>Department:</strong> CS</p>
+                            <p><strong>Email:</strong> rajesh@university.edu</p>
+                            <p><strong>Expertise:</strong> Data Structures, Algorithms</p>
+                            <div class="workload-bar">
+                                <div class="fill" style="width: 45%"></div>
+                            </div>
+                            <p class="workload-text">9/20 hours (45%)</p>
+                        </div>
+                        <div class="faculty-actions">
+                            <button class="btn-icon" onclick="editFaculty('FAC001')" title="Edit">E</button>
+                            <button class="btn-icon" onclick="deleteFacultyConfirm('FAC001')" title="Delete">D</button>
+                        </div>
+                    </div>
+
+                    <div class="faculty-card">
+                        <div class="faculty-header">
+                            <h4>Prof. Suresh Sharma</h4>
+                            <span class="badge amber">AMBER</span>
+                        </div>
+                        <div class="faculty-details">
+                            <p><strong>Department:</strong> CS</p>
+                            <p><strong>Email:</strong> suresh@university.edu</p>
+                            <p><strong>Expertise:</strong> Database, SQL</p>
+                            <div class="workload-bar">
+                                <div class="fill" style="width: 70%"></div>
+                            </div>
+                            <p class="workload-text">14/20 hours (70%)</p>
+                        </div>
+                        <div class="faculty-actions">
+                            <button class="btn-icon" onclick="editFaculty('FAC002')" title="Edit">E</button>
+                            <button class="btn-icon" onclick="deleteFacultyConfirm('FAC002')" title="Delete">D</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Management -->
+            <div id="subject-tab" class="tab-content">
+                <div class="resource-header">
+                    <h3>Subject Management</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openSubjectForm()">+ Add Subject</button>
+                </div>
+
+                <table class="resource-table">
+                    <thead>
+                        <tr>
+                            <th>Subject Name</th>
+                            <th>Department</th>
+                            <th>L/T/P Hours</th>
+                            <th>Credits</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data Structures</td>
+                            <td>CS</td>
+                            <td>3/1/2</td>
+                            <td>4</td>
+                            <td>
+                                <button class="btn-icon" onclick="editSubject('SUB001')" title="Edit">E</button>
+                                <button class="btn-icon" onclick="deleteSubjectConfirm('SUB001')" title="Delete">D</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Database Management</td>
+                            <td>CS</td>
+                            <td>3/1/2</td>
+                            <td>4</td>
+                            <td>
+                                <button class="btn-icon" onclick="editSubject('SUB002')" title="Edit">E</button>
+                                <button class="btn-icon" onclick="deleteSubjectConfirm('SUB002')" title="Delete">D</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Room Management -->
+            <div id="room-tab" class="tab-content">
+                <div class="resource-header">
+                    <h3>Room Management</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openRoomForm()">+ Add Room</button>
+                </div>
+
+                <div class="room-grid">
+                    <div class="room-card">
+                        <div class="room-header">
+                            <h4>LH-101 (Lecture Hall)</h4>
+                            <span class="status-badge active">ACTIVE</span>
+                        </div>
+                        <div class="room-details">
+                            <p><strong>Capacity:</strong> 100</p>
+                            <p><strong>Features:</strong> Projector, Whiteboard, AC</p>
+                            <p><strong>Utilization:</strong> 60%</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="toggleRoomStatusConfirm('ROOM001')">Toggle Status</button>
+                    </div>
+
+                    <div class="room-card">
+                        <div class="room-header">
+                            <h4>Lab-201 (Computer Lab)</h4>
+                            <span class="status-badge active">ACTIVE</span>
+                        </div>
+                        <div class="room-details">
+                            <p><strong>Capacity:</strong> 50</p>
+                            <p><strong>Systems:</strong> 50 (Windows)</p>
+                            <p><strong>Utilization:</strong> 45%</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="toggleRoomStatusConfirm('ROOM002')">Toggle Status</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Management -->
+            <div id="section-tab" class="tab-content">
+                <div class="resource-header">
+                    <h3>Section Management</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openSectionForm()">+ Add Section</button>
+                </div>
+
+                <table class="resource-table">
+                    <thead>
+                        <tr>
+                            <th>Section</th>
+                            <th>Branch</th>
+                            <th>Students</th>
+                            <th>Semester</th>
+                            <th>Subjects</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CS-A</td>
+                            <td>Computer Science</td>
+                            <td>60</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>
+                                <button class="btn-icon" onclick="editSection('SEC001')" title="Edit">E</button>
+                                <button class="btn-icon" onclick="deleteSectionConfirm('SEC001')" title="Delete">D</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CS-B</td>
+                            <td>Computer Science</td>
+                            <td>55</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>
+                                <button class="btn-icon" onclick="editSection('SEC002')" title="Edit">E</button>
+                                <button class="btn-icon" onclick="deleteSectionConfirm('SEC002')" title="Delete">D</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TIMETABLE SECTION -->
+        <section id="timetable-section" class="section">
+            <h2>Timetable View</h2>
+
+            <div class="timetable-controls">
+                <label>Select Section:</label>
+                <select id="section-filter" onchange="filterTimetableBySection()">
+                    <option value="">All Sections</option>
+                </select>
+            </div>
+
+            <div class="timetable-grid">
+                <table class="timetable-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timetable-body">
+                        <tr>
+                            <td colspan="6" class="schedule-cell">Generate a timetable to see scheduled classes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CONFLICTS SECTION -->
+        <section id="conflicts-section" class="section">
+            <h2>Conflict Resolution</h2>
+
+            <div class="conflict-panel">
+                <div class="conflict-stats">
+                    <h3>Total Conflicts: <span id="conflict-total">0</span></h3>
+                </div>
+
+                <div class="conflicts-list">
+                    <div class="conflict-item">
+                        <div class="conflict-header">
+                            <h4>Faculty Double-Booking</h4>
+                            <span class="conflict-type">Slot #CONFLICT_001</span>
+                        </div>
+                        <div class="conflict-body">
+                            <p><strong>Section:</strong> CS-A</p>
+                            <p><strong>Subject:</strong> Data Structures (Lecture)</p>
+                            <p><strong>Faculty:</strong> Dr. Kumar (already assigned at 10:00-11:00 Mon)</p>
+                            <p><strong>Requested Time:</strong> 11:00-12:00 Monday</p>
+                            <p><strong>Room:</strong> LH-101</p>
+                        </div>
+                        <div class="conflict-actions">
+                            <button class="btn btn-primary btn-sm" onclick="resolveConflict('CONFLICT_001')">
+                                Assign Alternative Faculty
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="acceptConflict('CONFLICT_001')">
+                                Manual Override
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="conflict-item">
+                        <div class="conflict-header">
+                            <h4>Room Overlap</h4>
+                            <span class="conflict-type">Slot #CONFLICT_002</span>
+                        </div>
+                        <div class="conflict-body">
+                            <p><strong>Section:</strong> CS-B</p>
+                            <p><strong>Subject:</strong> Database (Tutorial)</p>
+                            <p><strong>Faculty:</strong> Prof. Sharma</p>
+                            <p><strong>Requested Time:</strong> 11:00-12:00 Monday</p>
+                            <p><strong>Room:</strong> Lab-201 (already occupied)</p>
+                        </div>
+                        <div class="conflict-actions">
+                            <button class="btn btn-primary btn-sm" onclick="resolveConflict('CONFLICT_002')">
+                                Assign Alternative Room
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="acceptConflict('CONFLICT_002')">
+                                Manual Override
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS SECTION -->
+        <section id="settings-section" class="section">
+            <h2>System Settings</h2>
+
+            <div class="settings-form">
+                <h3>Algorithm Configuration</h3>
+                <div class="form-group">
+                    <label>Max Hours per Faculty (per week):</label>
+                    <input type="number" id="max-faculty-hours" value="20" min="1" max="50">
+                </div>
+
+                <div class="form-group">
+                    <label>Workload Green Threshold (%):</label>
+                    <input type="number" id="workload-green-threshold" value="50" min="0" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Workload Amber Threshold (%):</label>
+                    <input type="number" id="workload-amber-threshold" value="80" min="0" max="100">
+                </div>
+
+                <h3>Data Management</h3>
+                <div class="form-group">
+                    <button class="btn btn-secondary" onclick="exportDatabase()">Backup Database</button>
+                    <button class="btn btn-secondary" onclick="importDatabase()">Restore Database</button>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for Forms -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Form</h2>
+            <form id="modal-form" onsubmit="submitForm(event)">
+                <div id="form-fields"></div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api-client.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

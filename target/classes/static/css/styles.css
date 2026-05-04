@@ -1,0 +1,820 @@
+/* ============================================
+   UniPlanner Dashboard Styles
+   ============================================ */
+
+:root {
+    --primary: #2563eb;
+    --secondary: #f97316;
+    --success: #16a34a;
+    --warning: #eab308;
+    --danger: #dc2626;
+    --dark: #1f2937;
+    --light: #f3f4f6;
+    --gray-300: #d1d5db;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   Global Styles
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+/* ============================================
+   Navigation Bar
+   ============================================ */
+
+.navbar {
+    background: white;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo h1 {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.nav-logo p {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: var(--light);
+    color: var(--primary);
+}
+
+/* ============================================
+   Main Container & Sections
+   ============================================ */
+
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.section {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 1rem;
+}
+
+/* ============================================
+   Metrics Grid (Dashboard)
+   ============================================ */
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, var(--primary), #1e40af);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.metric-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.metric-card p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ============================================
+   Action Section
+   ============================================ */
+
+.action-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #ea580c;
+}
+
+.btn-outline {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+}
+
+.btn-outline:hover {
+    background-color: var(--light);
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-icon:hover {
+    transform: scale(1.2);
+}
+
+/* ============================================
+   Charts Section
+   ============================================ */
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.chart-container {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.chart-container h3 {
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.workload-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.workload-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.workload-item span {
+    min-width: 150px;
+    font-weight: 500;
+}
+
+.bar {
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    flex: 1;
+    max-width: 300px;
+}
+
+.bar.green {
+    background-color: #16a34a;
+}
+
+.bar.amber {
+    background-color: #eab308;
+    color: var(--dark);
+}
+
+.bar.red {
+    background-color: #dc2626;
+}
+
+.room-status {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.status-item {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid var(--gray-300);
+}
+
+.status-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0.5rem 0;
+}
+
+/* ============================================
+   Tabs
+   ============================================ */
+
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--gray-300);
+    background: white;
+    color: var(--dark);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ============================================
+   Resource Management
+   ============================================ */
+
+.resource-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.resource-header h3 {
+    font-size: 1.3rem;
+    color: var(--dark);
+}
+
+.faculty-grid,
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.faculty-card,
+.room-card {
+    background: white;
+    border: 2px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.faculty-card:hover,
+.room-card:hover {
+    box-shadow: var(--shadow);
+    border-color: var(--primary);
+}
+
+.faculty-header,
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.badge.green {
+    background-color: #16a34a;
+}
+
+.badge.amber {
+    background-color: #eab308;
+    color: var(--dark);
+}
+
+.badge.red {
+    background-color: #dc2626;
+}
+
+.faculty-details,
+.room-details {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.workload-bar {
+    background-color: var(--light);
+    height: 10px;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+    overflow: hidden;
+}
+
+.workload-bar .fill {
+    height: 100%;
+    background-color: var(--primary);
+    border-radius: 4px;
+}
+
+.faculty-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+
+.resource-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.resource-table thead {
+    background-color: var(--light);
+}
+
+.resource-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.resource-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-300);
+}
+
+.resource-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+/* ============================================
+   Timetable
+   ============================================ */
+
+.timetable-controls {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.timetable-controls label {
+    font-weight: 600;
+}
+
+.timetable-controls select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.timetable-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.timetable-table thead {
+    background-color: var(--primary);
+    color: white;
+}
+
+.timetable-table th,
+.timetable-table td {
+    padding: 1rem;
+    border: 1px solid var(--gray-300);
+    text-align: left;
+}
+
+.timetable-table th {
+    font-weight: 600;
+}
+
+.time-slot {
+    background-color: var(--light);
+    font-weight: 600;
+}
+
+.schedule-cell {
+    background-color: #fafafa;
+    min-height: 80px;
+}
+
+.slot-entry {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* ============================================
+   Conflicts
+   ============================================ */
+
+.conflict-panel {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.conflict-stats {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 4px;
+}
+
+.conflict-stats h3 {
+    color: var(--danger);
+    font-size: 1.3rem;
+}
+
+.conflicts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.conflict-item {
+    background: white;
+    border: 2px solid var(--warning);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.conflict-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--light);
+    padding-bottom: 1rem;
+}
+
+.conflict-header h4 {
+    color: var(--danger);
+}
+
+.conflict-type {
+    background-color: #fef3c7;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.conflict-body {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.conflict-body p {
+    margin: 0.5rem 0;
+    color: #6b7280;
+}
+
+.conflict-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   Settings Form
+   ============================================ */
+
+.settings-form {
+    background: var(--light);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.settings-form h3 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ============================================
+   Modal
+   ============================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6b7280;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close:hover {
+    color: var(--danger);
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal-content button {
+    align-self: flex-start;
+}
+
+/* ============================================
+   Status Badge
+   ============================================ */
+
+.status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.status-badge.active {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.maintenance {
+    background-color: #fed7aa;
+    color: #92400e;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-menu {
+        width: 100%;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .main-container {
+        padding: 1rem;
+    }
+
+    .section {
+        padding: 1rem;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .faculty-grid,
+    .room-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resource-table {
+        font-size: 0.9rem;
+    }
+
+    .timetable-table {
+        font-size: 0.85rem;
+    }
+
+    .timetable-table th,
+    .timetable-table td {
+        padding: 0.5rem;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+    .navbar,
+    .action-section,
+    .conflict-actions,
+    .btn {
+        display: none;
+    }
+
+    .section {
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+
+    .timetable-table {
+        font-size: 0.9rem;
+    }
+}
